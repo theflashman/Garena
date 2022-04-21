@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { computed, reactive } from "vue";
+import { computed, onMounted, reactive } from "vue";
 
 const data = reactive([
   {
@@ -51,11 +51,13 @@ const cardList = computed(() => {
 const cardBoxContent = computed(() => {
   return data.slice(5, 9);
 });
+
 </script>
 
 <style scoped>
 .box {
-  width: 1510px;
+  max-width: 1510px;
+  width: 100%;
   height: auto;
   margin: 0 auto;
   padding-bottom: 85px;
@@ -63,16 +65,16 @@ const cardBoxContent = computed(() => {
   flex-wrap: wrap;
 }
 .box .card {
-  margin: 50px;
   width: 403px;
   height: 402px;
+  margin: 50px auto;
   box-sizing: border-box;
 }
 .box .cardBox {
-  margin: 30px;
   width: 443px;
   height: 442px;
   display: flex;
+  margin: 30px auto;
   flex-wrap: wrap;
 }
 .cardBox .content {

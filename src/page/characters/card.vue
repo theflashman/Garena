@@ -12,46 +12,27 @@
 </template>
 
 <script setup>
-import { computed, onMounted, reactive } from "vue";
+import { computed, onMounted, ref } from "vue";
+import { getImgList } from "@/api";
 
-const data = reactive([
-  {
-    img: "img-1.jpg",
-  },
-  {
-    img: "img-1.jpg",
-  },
-  {
-    img: "img-1.jpg",
-  },
-  {
-    img: "img-1.jpg",
-  },
-  {
-    img: "img-1.jpg",
-  },
-  {
-    img: "img-1.jpg",
-  },
-  {
-    img: "img-1.jpg",
-  },
-  {
-    img: "img-1.jpg",
-  },
-  {
-    img: "img-1.jpg",
-  }
-]);
+const imgData = ref([]);
 
 const cardList = computed(() => {
-  return data.slice(0, 5);
+  return imgData.value.slice(0, 5);
 });
 
 const cardBoxContent = computed(() => {
-  return data.slice(5, 9);
+  return imgData.value.slice(5, 9);
 });
 
+const getCard = async () => {
+  const { data } = await getImgList();
+  imgData.value = data;
+};
+
+onMounted(() => {
+  getCard();
+});
 </script>
 
 <style scoped>
@@ -82,8 +63,8 @@ const cardBoxContent = computed(() => {
   width: 180px;
   height: auto;
 }
-.box img{
+.box img {
   width: 100%;
   height: auto;
-} 
+}
 </style>

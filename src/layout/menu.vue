@@ -45,39 +45,23 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { onMounted, ref } from "vue";
+import { getMenu } from "@/api";
 
 const isShow = ref(false);
 const setShow = () => {
   isShow.value = !isShow.value;
 };
 
-const list = reactive([
-  {
-    title: "HOME",
-    path: "/home/index",
-  },
-  {
-    title: "NEWS",
-    path: "/home/index",
-  },
-  {
-    title: "WEAPONS",
-    path: "/home/index",
-  },
-  {
-    title: "MAP",
-    path: "/home/index",
-  },
-  {
-    title: "CHARACTERS",
-    path: "/home/characters",
-  },
-  {
-    title: "WALLPAPER",
-    path: "/home/index",
-  },
-]);
+const list = ref([]);
+
+const getMenuList = async () => {
+  const res = await getMenu();
+  list.value = res;
+};
+onMounted(() => {
+  getMenuList();
+});
 </script>
 
 <style scoped>
@@ -166,6 +150,8 @@ const list = reactive([
     width: auto;
   }
   .menu ul {
+    z-index: 5;
+    position: relative;
     background-color: rgba(0, 0, 0, 0.6);
     width: 100%;
     padding: 0 0 0 25px;

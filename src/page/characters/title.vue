@@ -65,7 +65,7 @@
   width: 100%;
   border-color: rgba(255, 255, 255, 0.1);
   position: relative;
-  top: 40px;
+  top: 45px;
   float: left;
 }
 </style>

@@ -1,4 +1,5 @@
 import axios from "axios"
+// 原生
 export const getMenu = () => {
   const promise = new Promise((resolve, reject) => {
     const handler = function () {
@@ -20,7 +21,7 @@ export const getMenu = () => {
   })
   return promise
 }
-
+// 非原生
 export const getImgList = () => {
   return axios({
     url: '/api/getImg',

@@ -11,12 +11,14 @@
           <button
             class="navbar-toggler button"
             type="button"
+            ref="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
             aria-controls="navbarNav"
             aria-expanded="false"
             aria-label="Toggle navigation"
             @click="setShow"
+            v-click-outside:[button]="close"
           >
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -49,8 +51,16 @@ import { onMounted, ref } from "vue";
 import { getMenu } from "@/api";
 
 const isShow = ref(false);
+
+const button = ref(null);
+
 const setShow = () => {
   isShow.value = !isShow.value;
+};
+const close = () => {
+  setTimeout(() => {
+    isShow.value = false;
+  }, 200);
 };
 
 const list = ref([]);

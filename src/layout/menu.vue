@@ -11,12 +11,14 @@
           <button
             class="navbar-toggler button"
             type="button"
+            ref="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
             aria-controls="navbarNav"
             aria-expanded="false"
             aria-label="Toggle navigation"
             @click="setShow"
+            v-click-outside:[button]="close"
           >
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -45,39 +47,31 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { onMounted, ref } from "vue";
+import { getMenu } from "@/api";
 
 const isShow = ref(false);
+
+const button = ref(null);
+
 const setShow = () => {
   isShow.value = !isShow.value;
 };
+const close = () => {
+  setTimeout(() => {
+    isShow.value = false;
+  }, 200);
+};
 
-const list = reactive([
-  {
-    title: "HOME",
-    path: "/home/index",
-  },
-  {
-    title: "NEWS",
-    path: "/home/index",
-  },
-  {
-    title: "WEAPONS",
-    path: "/home/index",
-  },
-  {
-    title: "MAP",
-    path: "/home/index",
-  },
-  {
-    title: "CHARACTERS",
-    path: "/home/characters",
-  },
-  {
-    title: "WALLPAPER",
-    path: "/home/index",
-  },
-]);
+const list = ref([]);
+
+const getMenuList = async () => {
+  const res = await getMenu();
+  list.value = res;
+};
+onMounted(() => {
+  getMenuList();
+});
 </script>
 
 <style scoped>
@@ -166,6 +160,8 @@ const list = reactive([
     width: auto;
   }
   .menu ul {
+    z-index: 5;
+    position: relative;
     background-color: rgba(0, 0, 0, 0.6);
     width: 100%;
     padding: 0 0 0 25px;

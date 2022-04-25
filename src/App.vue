@@ -1,16 +1,12 @@
 <template>
-  <router-view />
+  <div style="width: 100%; height: auto">
+    <router-view />
+    <MaskLayer />
+  </div>
 </template>
 
-<script>
-import Layout from "./layout/index.vue";
-
-export default {
-  name: "App",
-  components: {
-    Layout,
-  },
-};
+<script setup>
+import MaskLayer from "@/component/maskLayer.vue";
 </script>
 
 <style>
@@ -20,9 +16,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 60px; */
 }
-body{
+body {
   margin: 0;
 }
 </style>
